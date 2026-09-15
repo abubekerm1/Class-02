@@ -55,80 +55,89 @@ class _RunMyAppState extends State<RunMyApp> {
 
       themeMode: _themeMode,
 
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Theme Demo'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Animated circle that changes color with the theme
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                width: 300,
-                height: 300,
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: _themeMode == ThemeMode.dark
-                      ? Colors.white
-                      : Colors.grey,
-                  shape: BoxShape.circle,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
+      home: Builder(
+        builder: (context) {
+          return AnimatedTheme(
+            // This is the second Special Feature for extra credit.
+            data: Theme.of(context),
+            duration: const Duration(milliseconds: 500),
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('Theme Demo'),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Animated circle that changes color with the theme
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: 300,
+                      height: 300,
+                      margin: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.grey,
+                        shape: BoxShape.circle,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Mobile App Development Testing',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Icon changes depending on the selected theme
+                    Icon(
+                      _themeMode == ThemeMode.dark
+                          ? Icons.nightlight_round
+                          : Icons.wb_sunny,
+                      size: 32,
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      'Choose the Theme:',
+                      style: TextStyle(fontSize: 16),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Buttons used to switch between light and dark mode
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => changeTheme(ThemeMode.light),
+                          child: const Text('Light Theme'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => changeTheme(ThemeMode.dark),
+                          child: const Text('Dark Theme'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                alignment: Alignment.center,
-                child: const Text(
-                  'Mobile App Development Testing',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
               ),
-
-              const SizedBox(height: 20),
-
-              // Icon changes depending on the selected theme
-              Icon(
-                _themeMode == ThemeMode.dark
-                    ? Icons.nightlight_round
-                    : Icons.wb_sunny,
-                size: 32,
-              ),
-
-              const SizedBox(height: 10),
-
-              const Text(
-                'Choose the Theme:',
-                style: TextStyle(fontSize: 16),
-              ),
-
-              const SizedBox(height: 10),
-
-              // Buttons used to switch between light and dark mode
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => changeTheme(ThemeMode.light),
-                    child: const Text('Light Theme'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => changeTheme(ThemeMode.dark),
-                    child: const Text('Dark Theme'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
